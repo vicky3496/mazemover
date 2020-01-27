@@ -71,7 +71,7 @@ puts "Welcome to the maze runner"
 # Taking the input from external .txt file. The program runs one time for each line of input. The program stops when the end of file is reached.
 File.open("test.txt").each do |line|
   input = line
-  initial_position =[0,0] # setting the initial position if the robot as []0,0]
+  initial_position =[0,0] # setting the initial position if the robot as [0,0]
   # creating an object for the MazeMover class
   obj = MazeMover2.new(0,0)
   # calling a method from the MazeMover which returns the final position of the robot after traversing through all the Direction given by user
