@@ -1,49 +1,60 @@
-class Test
-  include Distance
-  puts "Welcome"
-  val = gets
-  val2 = val.split ","
-  x = 0
-  y = 0
+class MazeMover
 
-  for a in val2 do
-    val3 =  a.scan(/\d+|[A-Za-z]+/)
-    val4 = val3[1].to_i
-    puts val3
-    puts val4
-    if val3[0] == "F"
-      until val4 == 0 do
-        x = x+1
-        val4 = val4 - 1
-      end
-    end
-    if val3[0] == "B"
-      until val4 == 0 do
-        x = x-1
-        val4 = val4 - 1
-      end
-    end
-    if val3[0] == "L"
-      until val4 == 0 do
-        y = y-1
-        val4 = val4 - 1
-      end
-    end
-    if val3[0] == "R"
-      until val4 == 0 do
-        y = y+1
-        val4 = val4 - 1
-      end
-    end
+  def splitInput(user_input)
+    input_string = user_input.split ","
+    parseInput(input_string)
   end
-  puts x
-  puts y
-  point1 = [x,y]
-  point2 = [0,0]
-  puts Math.sqrt(point1.zip(point2).reduce(0) { |sum, p| sum + (p[0] - p[1]) ** 2 }) # Euclidian distance
-  # # Manhattan Distance
-  answer1 = (point2[0] - point1[0]).abs
-  answer2 = (point2[1] - point1[1]).abs
-  puts answer1 + answer2
-end
 
+  def parseInput(input_string)
+    x=0
+    y=0
+    for dir in input_string do
+      directions_array =  dir.scan(/\d+|[A-Za-z]+/)
+      directions = directions_array[1].to_i
+      if directions_array[0] == "F"
+        until directions == 0 do
+          x = x+1
+          directions = directions - 1
+        end
+      end
+      if directions_array[0] == "B"
+        until directions == 0 do
+          x = x-1
+          directions = directions - 1
+        end
+      end
+      if directions_array[0] == "L"
+        until directions == 0 do
+          y = y-1
+          directions = directions - 1
+        end
+      end
+      if directions_array[0] == "R"
+        until directions == 0 do
+          y = y+1
+          directions = directions - 1
+        end
+      end
+    end
+    return [x,y]
+  end
+
+
+  def CalculateManhattanDistance(initial_pos,final_pos)
+    x_val = (final_pos[0] - initial_pos[0]).abs
+    y_val = (final_pos[1] - initial_pos[1]).abs
+    return x_val + y_val
+  end
+  end
+
+puts "Welcome to the maze runner"
+File.open("test.txt").each do |line|
+  input = line
+  initial_position =[0,0]
+  obj = MazeMover.new
+  final_position = obj.splitInput(input)
+  minimum_distance = obj.CalculateManhattanDistance(initial_position,final_position)
+  puts " The minimum distance for the robot to reach starting point is:"
+  puts minimum_distance
+
+end
