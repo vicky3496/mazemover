@@ -41,5 +41,9 @@ class Test
   point1 = [x,y]
   point2 = [0,0]
   puts Math.sqrt(point1.zip(point2).reduce(0) { |sum, p| sum + (p[0] - p[1]) ** 2 }) # Euclidian distance
+  # # Manhattan Distance
+  answer1 = (point2[0] - point1[0]).abs
+  answer2 = (point2[1] - point1[1]).abs
+  puts answer1 + answer2
 end
 
