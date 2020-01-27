@@ -19,6 +19,7 @@ class MazeMover2
     for dir in input_string do
       # Regular expression to break the string into direction command and no of steps.
       # This will ignore any symbols before the number in the direction command. considers only numbers and alphabets
+      # If no number is specified then it is taken as 0.
       directions_array =  dir.scan(/\d+|[A-Za-z]+/)
       Movement(directions_array)
     end
