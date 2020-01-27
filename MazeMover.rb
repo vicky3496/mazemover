@@ -17,7 +17,9 @@ class MazeMover2
   # Regx is used to make sure the input string is parsed correctly and only takes an Alphabet and Number and ignores rest all symbols
   def parseInput(input_string)
     for dir in input_string do
-      directions_array =  dir.scan(/\d+|[A-Za-z]+/) # Regular expression to break the string into direction command and no of steps.
+      # Regular expression to break the string into direction command and no of steps.
+      # This will ignore any symbols before the number in the direction command. considers only numbers and alphabets
+      directions_array =  dir.scan(/\d+|[A-Za-z]+/)
       Movement(directions_array)
     end
      return [@x,@y]
@@ -83,7 +85,7 @@ class MazeMover2
 
 puts "Welcome to the maze runner"
 # Taking the input from external .txt file. The program runs one time for each line of input. The program stops when the end of file is reached.
-File.open("input.txt").each do |line|
+File.open("test.txt").each do |line|
   input = line
   initial_position =[0,0] # setting the initial position if the robot as []0,0]
   # creating an object for the MazeMover class
@@ -92,7 +94,7 @@ File.open("input.txt").each do |line|
   input_string= obj.splitInput(input)
   # Calling input validator fucntion to check if the input is right or wrong
   validate = obj.input_validator(input_string)
-  # If the input is right then the robot is moved or else an error is thrown 
+  # If the input is right then the robot is moved or else an error is thrown
   if validate == 1
     # calling function to parse input and move the robot
     final_position= obj.parseInput(input_string)
@@ -108,3 +110,4 @@ File.open("input.txt").each do |line|
 
 
 end
+
